@@ -298,8 +298,18 @@ export interface TemplateConfig {
 
 // === Templates ===
 
-/** A resolved template component. */
-export type TemplateComponent = (props: TemplateProps) => unknown;
+/**
+ * A resolved template component.
+ *
+ * The parameter is deliberately bivariant (method-style signature). Core's
+ * props are a superset of these, so a function core hands out
+ * (`page.component()`) requires more than this package declares, while a
+ * template written against these props is accepted by core. A strict function
+ * type would reject the first and gain nothing for the second.
+ */
+export type TemplateComponent = {
+  bivarianceHack(props: TemplateProps): unknown;
+}["bivarianceHack"];
 
 /** One hit on the built-in `/search` page. */
 export interface SearchResult {
