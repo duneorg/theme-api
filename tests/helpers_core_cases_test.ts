@@ -28,8 +28,13 @@ Deno.test("buildPageTitle: title only", () => {
 });
 
 Deno.test("buildPageTitle: title and descriptor", () => {
-  const page = { frontmatter: { title: "Services", descriptor: "Custom Solutions" } };
-  assertEquals(buildPageTitle(page, "My Site"), "Services - Custom Solutions | My Site");
+  const page = {
+    frontmatter: { title: "Services", descriptor: "Custom Solutions" },
+  };
+  assertEquals(
+    buildPageTitle(page, "My Site"),
+    "Services - Custom Solutions | My Site",
+  );
 });
 
 // === formatDate ===
@@ -103,7 +108,7 @@ Deno.test("paginate: last page (partial)", () => {
 
 Deno.test("paginate: clamps page to valid range", () => {
   const items = [1, 2, 3];
-  assertEquals(paginate(items, 0, 10).page, 1);  // page < 1 → 1
+  assertEquals(paginate(items, 0, 10).page, 1); // page < 1 → 1
   assertEquals(paginate(items, 99, 10).page, 1); // page > totalPages → totalPages
 });
 
@@ -158,13 +163,21 @@ Deno.test("sortPages: by title desc", () => {
 });
 
 Deno.test("sortPages: by order asc", () => {
-  const pages = [makePage("C", undefined, 3), makePage("A", undefined, 1), makePage("B", undefined, 2)];
+  const pages = [
+    makePage("C", undefined, 3),
+    makePage("A", undefined, 1),
+    makePage("B", undefined, 2),
+  ];
   const sorted = sortPages(pages, "order", "asc");
   assertEquals(sorted.map((p) => p.title), ["A", "B", "C"]);
 });
 
 Deno.test("sortPages: by date desc", () => {
-  const pages = [makePage("Old", "2020-01-01"), makePage("New", "2024-01-01"), makePage("Mid", "2022-01-01")];
+  const pages = [
+    makePage("Old", "2020-01-01"),
+    makePage("New", "2024-01-01"),
+    makePage("Mid", "2022-01-01"),
+  ];
   const sorted = sortPages(pages, "date", "desc");
   assertEquals(sorted.map((p) => p.title), ["New", "Mid", "Old"]);
 });
@@ -201,7 +214,9 @@ Deno.test("groupByYear: all years present", () => {
     makePage("B", "2026-01-01"),
     makePage("C", "2025-01-01"),
   ];
-  const keys = Object.keys(groupByYear(pages)).map(Number).sort((a, b) => b - a);
+  const keys = Object.keys(groupByYear(pages)).map(Number).sort((a, b) =>
+    b - a
+  );
   assertEquals(keys, [2026, 2025, 2024]);
 });
 
