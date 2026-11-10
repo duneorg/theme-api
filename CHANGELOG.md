@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 (unreleased)
+## 1.0.0 (2026-11-10)
 
 First release. The theme contract, extracted from `@dune/core` (`content/types`,
 `theme-helpers`) so that themes depend on a leaf package instead of the CMS.
